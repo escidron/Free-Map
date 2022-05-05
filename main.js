@@ -23,6 +23,12 @@ fetch(urlPost, {
 		var contY = 0
 		for (x = 0; x < pontos.length; x++) {
 
+			if (typeof pontos[x].hintAcesso == "string"){
+						
+				const [day, month, year] = pontos[x].hintAcesso.split("/");
+				pontos[x].hintAcesso = `${month}/${day}/${year}`
+				
+			}
 
 			if (markersArr.length != 0) {
 
@@ -183,9 +189,7 @@ fetch(urlPost, {
 			})
 		});
 
-		// distance.addEventListener('input', function () {
-		// 	clusterSource.setDistance(parseInt(distance.value, 10));
-		// });
+		
 
 		map.on('pointermove', function (event) {
 			overlay.setPosition(undefined)
@@ -201,11 +205,21 @@ fetch(urlPost, {
 
 					document.getElementById("card").style.display = "block"
 					document.getElementById("card").style.position = "absolute"
-					document.getElementById("cardImg").src = pontos[key].picture
+					//document.getElementById("cardImg").src = pontos[key].picture
 					document.getElementById("card-header").innerText = pontos[key].hintEmpresa;
 					document.getElementById("cardText").innerText = "Usuario: " + pontos[key].hintUser + "\n" + "Utilizando: " + pontos[key].hintDesc + "\n" + "Data: " + pontos[key].hintAcesso + "\n" + "Hora: " + pontos[key].hintHora;
 					
-
+					let headers = new Headers()
+					
+					fetch(pontos[key].picture, {
+						method: "GET"
+					}).then(Response => {
+						console.log(response.status)
+					}).catch(err => {
+						// if any error occured, then catch it here
+						console.error(err);
+						console.error("./img/SemFoto.jpg")
+					});
 				}
 
 			});
@@ -218,7 +232,6 @@ fetch(urlPost, {
 				var atualZoom =map.getView().getZoom()
 				var newZoom = atualZoom+2
 				map.getView().setZoom(newZoom)
-				console.log(event.coordinate)
 				map.getView().setCenter(event.coordinate);
 				
 				
