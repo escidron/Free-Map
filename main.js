@@ -10,8 +10,6 @@ if (empresa == null) {
 }
 
 
-
-var markersArr = []
 fetch(urlPost, {
 		method: "POST"
 	}).then(Response => {
@@ -23,11 +21,11 @@ fetch(urlPost, {
 		var contY = 0
 		for (x = 0; x < pontos.length; x++) {
 
-			if (typeof pontos[x].hintAcesso == "string"){
-						
+			if (typeof pontos[x].hintAcesso == "string") {
+
 				const [day, month, year] = pontos[x].hintAcesso.split("/");
 				pontos[x].hintAcesso = `${month}/${day}/${year}`
-				
+
 			}
 
 			if (markersArr.length != 0) {
@@ -189,10 +187,10 @@ fetch(urlPost, {
 			})
 		});
 
-		
+
 
 		map.on('pointermove', function (event) {
-			overlay.setPosition(undefined)
+			//overlay.setPosition(undefined)
 			map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
 				var key = feature.getId();
 				var prop = feature.getGeometry()
@@ -205,38 +203,48 @@ fetch(urlPost, {
 
 					document.getElementById("card").style.display = "block"
 					document.getElementById("card").style.position = "absolute"
-					//document.getElementById("cardImg").src = pontos[key].picture
+
+					document.getElementById("cardImg").src = pontos[key].picture
 					document.getElementById("card-header").innerText = pontos[key].hintEmpresa;
 					document.getElementById("cardText").innerText = "Usuario: " + pontos[key].hintUser + "\n" + "Utilizando: " + pontos[key].hintDesc + "\n" + "Data: " + pontos[key].hintAcesso + "\n" + "Hora: " + pontos[key].hintHora;
-					
-					let headers = new Headers()
-					
-					fetch(pontos[key].picture, {
-						method: "GET"
-					}).then(Response => {
-						console.log(response.status)
-					}).catch(err => {
-						// if any error occured, then catch it here
-						console.error(err);
-						console.error("./img/SemFoto.jpg")
-					});
+
+					// $.get(pontos[key].picture)
+					// 	.done(function() { 
+					// 		console.log("ok")
+					// 		// Do something now you know the image exists.
+
+					// 	}).fail(function() { 
+					// 		// Image doesn't exist - do something else.
+					// 		console.log("reee")
+					// 	})
+					// fetch(pontos[key].picture, {
+					// 		method: 'GET'
+					// 	})
+					// 	.then(res => {
+					// 		if (res.ok) {
+					// 			document.getElementById("cardImg").src = pontos[key].picture
+					// 			console.log('Image exists.');
+					// 		} else {
+					// 			console.log('Image does not exist.');
+					// 		}
+					// 	}).catch(err => console.log('Error:', err));
 				}
 
 			});
 
 		});
 
-		
+
 		map.on('click', function (event) {
 			map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
-				var atualZoom =map.getView().getZoom()
-				var newZoom = atualZoom+2
+				var atualZoom = map.getView().getZoom()
+				var newZoom = atualZoom + 2
 				map.getView().setZoom(newZoom)
 				map.getView().setCenter(event.coordinate);
-				
-				
-				 	
-				
+
+
+
+
 			});
 		});
 
@@ -252,3 +260,127 @@ fetch(urlPost, {
 		// if any error occured, then catch it here
 		console.error(err);
 	})
+
+
+
+////MODALS
+function criaChartPie(){
+
+	  const data = {
+		labels: ['Coleta de Dados','Reembolso','Força de Vendas','Aprovacao/Compras','Diversos/Config.'],
+		datasets: [{
+		  label: 'Dataset 2',
+		  backgroundColor: ["red","blue","yellow","gray","green"],
+		  data: [2, 10, 5, 20, 6],
+		}]
+	  };
+	
+	  const config = {
+		type: 'doughnut',
+		data: data,
+		options: {
+			cutout:"40%",
+			radius:"80%",
+			
+			
+			plugins: {
+			  legend: {
+				position: 'right',
+				labels:{
+					boxWidth:"10",
+					usePointStyle:true,
+					pointStyle:"circle"					
+				},
+			  },
+			  title: {
+				display: true,
+				text: 'Logins por modalidade'
+			  }
+		}
+	  }
+	}
+
+	  const myChart1 = new Chart(
+		document.getElementById('myChart1'),
+		config
+	  );
+	
+	  
+	
+}
+function criaChartBar(){
+	const labels = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+	  ];
+	
+	  const data = {
+		labels: labels,
+		datasets: [{
+		  label: 'My First dataset',
+		  backgroundColor: 'rgb(255, 99, 132)',
+		  borderColor: 'rgb(255, 99, 132)',
+		  data: [0, 10, 5, 2, 20, 30, 45],
+		}]
+	  };
+	
+	  const config = {
+		type: 'bar',
+		data: data,
+		options: {}
+	  };
+	
+	  const myChart2 = new Chart(
+		document.getElementById('myChart2'),
+		config
+	  );
+	
+	  
+	
+}
+
+function criaChartLine(){
+	const labels = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+	  ];
+	
+	  const data = {
+		labels: labels,
+		datasets: [{
+		  label: 'My First dataset',
+		  backgroundColor: 'rgb(255, 99, 132)',
+		  borderColor: 'rgb(255, 99, 132)',
+		  data: [0, 10, 5, 2, 20, 30, 45],
+		}]
+	  };
+	
+	  const config = {
+		type: 'line',
+		data: data,
+		options: {}
+	  };
+	
+	  const myChart3 = new Chart(
+		document.getElementById('myChart3'),
+		config
+	  );
+	
+	  
+	
+}
+
+
+
+ criaChartPie()
+// criaChartBar()
+
+//document.getElementById('myChart1').style.backgroundColor="black"
