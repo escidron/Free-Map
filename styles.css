@@ -18,7 +18,8 @@ body{
     border-radius: 10px;
     opacity: 0.95;
     border: 1px solid black;
-    box-shadow: 0 0 1em rgb(236, 214, 90)
+    /* box-shadow: 0 0 1em rgb(236, 214, 90) */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 #cardImg{
@@ -46,7 +47,7 @@ body{
 }
 
 .graficos{
-    background-color: rgb(147, 157, 248);
+    background-color: transparent;
     position: absolute;
     float: right;
     width: 25%;
@@ -59,29 +60,152 @@ body{
     border-radius: 10px;
     opacity: 0.85;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 3rem;
+    /* justify-content: space-between; */
+    gap: 1rem;
+}
+
+#myChart1{
+    background-color: rgba(32, 178, 171, 0.849);
+    border-radius: 10px;
+    opacity: 0.85;
+}
+#myChart2{
+    background-color: rgba(32, 178, 171, 0.849);
+    border-radius: 10px;
+    opacity: 0.85;
+}
+
+#myChart3{
+    background-color: rgba(32, 178, 171, 0.849);
+    border-radius: 10px;
+    opacity: 0.85;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    
+}
+
+#headerFiltro{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 
+/* Empresa */
+#divFiltroEmpresa{
+    display: flex;
+    align-items: flex-start;
+    
+}
+
+#labelFiltroEmpresa{
+    font-weight: bold;
+    width: 100px;
+}
+#inputFiltroEmpresa{
+    width: 100%;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 0;
+}
+
+#inputFiltroEmpresa:focus{
+    outline: none;
+}
+/* usuario */
+#divFiltroUser{
+    display: flex;
+    align-items: flex-start;
+    
+}
+
+#labelFiltroUser{
+    font-weight: bold;
+    width: 100px;
+}
+#inputFiltroUser{
+    width: 100%;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 0;
+}
+
+#inputFiltroUser:focus{
+    outline: none;
+}
+/* data inicial */
+#divFiltroDataIni{
+    display: flex;
+    align-items: flex-start;
+    
+}
+#labelFiltroDataIni{
+    font-weight: bold;
+    width: 100px;
+}
+#inputFiltroDataIni{
+    width: 100%;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 0;
+}
+
+#inputFiltroDataIni:focus{
+    outline: none;
+}
+/* data final */
+#divFiltroDataFin{
+    display: flex;
+    align-items: flex-start;
+    
+}
+#labelFiltroDataFin{
+    font-weight: bold;
+    width: 100px;
+}
+#inputFiltroDataFin{
+    width: 100%;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 0;
+}
+
+#inputFiltroDataFin:focus{
+    outline: none;
+}
+
+.btn-danger{
+    margin-right: 4px;
+    font-size: 5px;
+}
 
 
+#updateIcon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    z-index: 99;
+}
 
- #grafico1{
-    background-color: blue;
-    height: 30%;
+#inputRefresh{
+    border-radius: 10px 0 0 10px;
+    border: 0;
+    width: 40%;
+    text-align: center;
+}
+
   
-} 
-
-
-
-
-#grafico2{
-    background-color: blue;
-    height: 30%;
+  
+#inputRefresh:focus{
+    outline: none;
+    
 }
 
-#grafico3{
+#buttonRefresh{
     background-color: blue;
-    height: 30%;
+    border: 0;
+    border-radius: 0 10px 10px 0;
 }
