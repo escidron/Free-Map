@@ -148,7 +148,7 @@ function criaMapa(pontos) {
 		style: function (feature) {
 			var size = feature.get('features').length;
 			var style = styleCache[size];
-			if (!style) {
+			if ( size > 1) {
 				style = new ol.style.Style({
 					image: new ol.style.Circle({
 						radius: 10,
@@ -167,8 +167,16 @@ function criaMapa(pontos) {
 					})
 				});
 				styleCache[size] = style;
+				return style;
 			}
-			return style;
+			else{	
+				
+				
+				return feature.get('features')[0].values_.style
+				
+			}
+			
+			
 		},
 		minResolution: 1
 	});
@@ -205,27 +213,38 @@ function criaMapa(pontos) {
 	map.on('pointermove', function (event) {
 		
 		overlay.setPosition(undefined)
+		document.getElementById("cardImg").src = ""
 		map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
 			
-			var key = feature.getId();
-			var prop = feature.getGeometry()
-
+			if(feature.getRevision()==1 && feature.get('features').length==1){
+				var key = feature.values_.features[0].id_
+				var prop = feature.values_.features[0].values_.geometry
+			}
+			else if(feature.getRevision()==2){
+				var key = feature.getId();
+				var prop = feature.getGeometry()
+			}
+			else{
+				var key = undefined
+				var prop = undefined
+			}
 			
+
 			if(key!= undefined){
 				for (var x= 0;x<pontos.length;x++){
 					if (pontos[x].Id==key) {
 						
 	
 						overlay.setPosition(prop.flatCoordinates)
-		
+						document.getElementById("cardImg").src = pontos[x].picture
 						document.getElementById("card").style.display = "block"
 						document.getElementById("card").style.position = "absolute"
 		
-						document.getElementById("cardImg").src = pontos[x].picture
+						
 						document.getElementById("card-header").innerText = pontos[x].hintEmpresa;
 						document.getElementById("cardText").innerText = "Usuario: " + pontos[x].hintUser + "\n" + "Utilizando: " + pontos[x].hintDesc + "\n" + "Data: " + pontos[x].hintAcesso + "\n" + "Hora: " + pontos[x].hintHora;
 		
-						
+						break
 					}
 				}
 			}
@@ -685,7 +704,6 @@ function setRefresh(){
 	if(timer!=0){
 		clearInterval(timer)
 		timer = 0
-
 	}
 	
 	timer = setInterval(function(){
